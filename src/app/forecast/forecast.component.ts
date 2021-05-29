@@ -3,6 +3,7 @@ import { ElementRef } from '@angular/core';
 import { ViewChild } from '@angular/core';
 
 import { Router } from '@angular/router';
+import { Response } from '../model/response.model';
 
 import { WeatherService } from '../services/data-service.service';
 @Component({
@@ -25,25 +26,20 @@ export class ForecastComponent implements OnInit {
     1: '',
     2: '',
   };
-  weatherData: {
-    sunrise: string;
-    sunset: string;
-    moonrise: string;
-    moonset: string;
-    avgtemp_c: number;
-    daily_chance_of_rain: string;
-    daily_chance_of_snow: string;
-    maxtemp_c: number;
-    maxwind_kph: number;
-    mintemp_c: number;
-    text: string;
-    icon: string;
-  }[] = [];
+  weatherData: Response[] = [];
   location: string;
   ngOnInit() {
     this.name = JSON.parse(localStorage.getItem('UserData'))['name'];
     console.log(this.name);
-
+    this.wService.city.subscribe((name) => {
+      this.cityName = name;
+      this.wService.getWeatherData(name).subscribe((data) => {
+        console.log('apii city', data);
+        this.data = data;
+        this.weatherData.splice(0, this.weatherData.length);
+        this.setWeatherData(this.data);
+      });
+    });
     this.wService.getWeatherData(this.cityName).subscribe((data) => {
       console.log('apii', data);
       this.data = data;
@@ -52,14 +48,14 @@ export class ForecastComponent implements OnInit {
     });
   }
 
-  search(name: HTMLInputElement) {
-    this.cityName = name.value;
-    this.wService.getWeatherData(this.cityName).subscribe((data) => {
-      this.data = data;
-      this.weatherData.splice(0, this.weatherData.length);
-      this.setWeatherData(data);
-    });
-  }
+  // search(name: HTMLInputElement) {
+  //   this.cityName = name.value;
+  //   this.wService.getWeatherData(this.cityName).subscribe((data) => {
+  //     this.data = data;
+  //     this.weatherData.splice(0, this.weatherData.length);
+  //     this.setWeatherData(data);
+  //   });
+  //}
   setWeatherData(data: any) {
     this.location = data.location.region + ', ' + data.location.country;
 

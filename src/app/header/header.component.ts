@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { WeatherService } from '../services/data-service.service';
 
 @Component({
   selector: 'app-header',
@@ -8,8 +9,9 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   isDrop: boolean = false;
-
-  constructor(private router: Router) {}
+  @ViewChild('city') city: ElementRef;
+  cityName: string = '';
+  constructor(private router: Router, private wService: WeatherService) {}
 
   ngOnInit(): void {}
   toggle(num: number) {
@@ -18,5 +20,8 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(['/']);
     }
   }
-  search(n) {}
+  search(name: HTMLInputElement) {
+    this.cityName = name.value;
+    this.wService.city.next(this.cityName);
+  }
 }

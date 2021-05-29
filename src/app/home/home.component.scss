@@ -1,6 +1,6 @@
 .slantedDivA {
   position: relative;
-  width: 100vw;
+  width: 100%;
   height: 400px;
   background: rgb(255, 95, 67);
 }
@@ -8,7 +8,6 @@
 .slantedDivA:after {
   position: absolute;
   width: 100%;
-  height: 30vw;
   content: "";
   background: inherit;
   z-index: -1;
@@ -17,24 +16,11 @@
   bottom: 0;
   left: 0;
   transform-origin: top left;
-  transform: skewY(10.3deg);
+  transform: skewY(10.6deg);
 }
-
-.content-1 {
-  position: relative;
-  left: 660px;
-  top: -100px;
-  width: 30%;
-  text-align: justify;
+.item1 {
+  flex-basis: 50%;
 }
-.content-2 {
-  position: relative;
-  left: 660px;
-  top: -100px;
-  width: 30%;
-  text-align: justify;
-}
-.head {
-  float: right;
-  margin-right: 6rem;
+.item2 {
+  flex-basis: 400px;
 }

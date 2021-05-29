@@ -1,10 +1,8 @@
-input[type="text"] {
-  width: 50%;
-}
 .home {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  background: rgb(241, 107, 66);
 }
 .item1 {
   flex-basis: 300px;
@@ -12,6 +10,4 @@ input[type="text"] {
 .item2 {
   flex-grow: 1;
   align-self: center;
-}
-.item3 {
 }

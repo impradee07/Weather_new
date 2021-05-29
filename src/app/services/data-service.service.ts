@@ -8,11 +8,13 @@ import { Observable, Subject } from 'rxjs';
 })
 export class WeatherService implements OnInit {
   username = new BehaviorSubject<string>(null);
+  city = new Subject<string>();
   apiKey = 'edc1bd27ced542688eb40900210405';
   url = 'https://api.weatherapi.com/v1/forecast.json?';
   name = null;
   constructor(private http: HttpClient) {}
   ngOnInit() {}
+
   getUsername() {
     this.username.subscribe((name) => {
       this.name = name;
